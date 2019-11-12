@@ -138,7 +138,7 @@
 
 
 {% if section.settings.social-enable %}
-<div class="container visible-xs mobile-social-icons">
+<div class="container visible-xs mobile-social-icons desktop-only">
   <div class="row">
 
     <div class="mobile-social-icons-list">
@@ -623,33 +623,6 @@
       "id": "search-enable",
       "label": "Enable search",
       "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "label-enable",
-      "label": "Show icon labels",
-      "default": false,
-      "info": "Show text labels next to the icons"
-    },
-    {
-      "type": "select",
-      "id": "icon-size",
-      "label": "Icon size",
-      "options": [
-        {
-          "value": "16",
-          "label": "Small"
-        },
-        {
-          "value": "18",
-          "label": "Medium"
-        },
-        {
-          "value": "20",
-          "label": "Large"
-        }
-      ],
-      "default": "18"
     },
     {
       "type":      "radio",

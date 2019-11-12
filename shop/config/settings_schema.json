@@ -557,6 +557,12 @@
       },
       {
         "type": "text",
+        "id": "sm_strava_link",
+        "label": "Strava",
+        "info": "https:\/\/strava.com\/clubs\/number"
+      },
+      {
+        "type": "text",
         "id": "sm_facebook_link",
         "label": "Facebook",
         "info": "https:\/\/www.facebook.com\/shopify"

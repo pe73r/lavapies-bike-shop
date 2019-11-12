@@ -37,8 +37,12 @@
 	<link rel="canonical" href="{{ canonical_url }}" />
 
 	<!-- CSS -->
-	{{ 'plugins.css' | asset_url | stylesheet_tag }} {{ 'style.scss.css' | asset_url | stylesheet_tag }}
-
+	{{ 'plugins.css' | asset_url | stylesheet_tag }}
+	{{ 'style.scss.css' | asset_url | stylesheet_tag }}
+	{{ 'flickity.scss.css' | asset_url | stylesheet_tag }}
+	{{ 'avalanche.scss.css' | asset_url | stylesheet_tag }}
+	{{ 'custom.scss.css' | asset_url | stylesheet_tag }}
+ 
 	{% include 'font-links' %}
 
 	{% if settings.favicon != blank %}
@@ -66,6 +70,8 @@
 	{{ 'plugins.js' | asset_url | script_tag }}
 	{{ 'custom.js' | asset_url | script_tag }}
 	{{ 'sections.js' | asset_url | script_tag }}
+	{{ 'flickity.js' | asset_url | script_tag }}
+
 
 </head>
 
