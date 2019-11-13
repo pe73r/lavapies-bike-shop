@@ -49,7 +49,7 @@
     {% assign text-advert--alignment = "text-adverts-alignment--right" %}
 {% endcase %}
 
-<div class="container hidden-xs">
+<div class="container hidden-xs {% if section.settings.only-mobile %} desktop-only {% endif %}">
   <div class="row text-advert-section {{ column_amount }} {{ text-advert--alignment }}">
 
     {% for block in section.blocks %}
@@ -59,16 +59,21 @@
       {% endif %}
 
       <div class="grid__item {{ column_size }}" {{ block.shopify_attributes }}>
-
-        {% if block.settings.icon != 'none' %}
-        <div class="text-advert-block--icon-wrapper">
-          {% if advert_has_link %}<a href="{{ block.settings.link }}">{% endif %}
-          <i data-feather="{{ block.settings.icon }}"></i>
-          {% if advert_has_link %}</a>{% endif %}
+       {% if block.settings.custom-icon != blank %}
+         <div class="text-advert-block--icon-wrapper">
+          <img src="{{ block.settings.custom-icon | img_url: 'master' }}" alt="" class="text-advert__custom-icon">
         </div>
         <div class="text-advert-block--text-wrapper">
-        {% endif %}
-
+       {% else %}
+            {% if block.settings.icon != 'none' %}
+              <div class="text-advert-block--icon-wrapper">
+                {% if advert_has_link %}<a href="{{ block.settings.link }}">{% endif %}
+                <i data-feather="{{ block.settings.icon }}"></i>
+                {% if advert_has_link %}</a>{% endif %}
+              </div>
+            <div class="text-advert-block--text-wrapper">
+            {% endif %}
+       {% endif %}
           {% if block.settings.heading != blank %}
             {% if advert_has_link %}<a href="{{ block.settings.link }}">{% endif %}
             <span class="text-advert-section--header h5">{{ block.settings.heading | escape }}</span>
@@ -81,7 +86,7 @@
             {% if advert_has_link %}</a>{% endif %}
           {% endif %}
 
-        {% if block.settings.icon != 'none' %}
+        {% if block.settings.icon != 'none' or block.settings.custom-icon != blank %}
         </div>
         {% endif %}
 
@@ -91,7 +96,7 @@
   </div>
 </div>
 
-<div class="container visible-xs">
+<div class="container visible-xs {% if section.settings.only-mobile %} desktop-only {% endif %}">
   <div class="row text-advert-section mobile-homepage-text-adverts {{ column_amount }} {{ text-advert--alignment }}">
     <ul class="slides">
       {% for block in section.blocks %}
@@ -155,11 +160,17 @@
   "name": "Text adverts",
   "class": "section--text-adverts-wrapper",
   "settings": [
+
     {
       "type": "checkbox",
       "id": "enable",
       "label": "Enable text adverts",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "only-mobile",
+      "label": "dont display in mobile"
     },
     {
       "type": "select",
@@ -238,6 +249,11 @@
       "type": "text",
       "name": "Advert",
       "settings": [
+         {
+           "type": "image_picker",
+           "id": "custom-icon",
+           "label": "custom icon"
+         },
         {
             "type": "select",
             "id": "icon",

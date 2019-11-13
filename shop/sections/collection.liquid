@@ -1,3 +1,11 @@
+<style >
+
+#section-{{ section.id }} .featured-products__title{
+   max-width: {{ section.settings.size }}px;
+ }
+//
+</style>
+
 {% case section.settings.colors %}
   {% when 'white' %}
     <div class="homepage-sections-wrapper homepage-sections-wrapper--white">
@@ -9,12 +17,18 @@
     <div class="homepage-sections-wrapper homepage-sections-wrapper--dark">
 {% endcase %}
 
-<div class="container">
+<div class="container" id="section-{{ section.id }}">
 	<div class="row">
 		<div class="page-width col-md-12">
+      {% if section.settings.image != blank %}
+        <div class="featured-collection__image">
+            <img src="{{ section.settings.image | img_url: 'master'}}" alt="touring">
+        </div>
+      {% endif %}
+
     {% if section.settings.title != blank %}
 
-      <div class="title-bar {{ settings.title-bar-styling }} custom-font">
+      <div class="featured-collection__title">
       	<h2><span>{{ section.settings.title | escape }}</span></h2>
       	<div class="clear"></div>
       </div>
@@ -103,31 +117,33 @@
 
 						{% endcase %}
 
+
         	<div class="hp-title">
 
-        		{% if section.settings.show-vendor %}
-        			<div class="indiv-product-vendor-text">{{ product.vendor | link_to_vendor }}</div>
-        		{% endif %}
 
-        		<a href="{{ product.url | within: collection }}">
+          		{% if section.settings.show-vendor %}
+          			<div class="indiv-product-vendor-text">{{ product.vendor | link_to_vendor }}</div>
+          		{% endif %}
 
-        			<div class="indiv-product-title-text">{{ product.title }}</div>
+          		<a href="{{ product.url | within: collection }}">
 
-        			<span class="money-styling">
-        				{% if product.compare_at_price_max > product.price %}
-        					<span class="compare-at-price"><span class="money">{{ product.compare_at_price_max | money }}</span></span>
-        				{% endif %}
+          			<div class="indiv-product-title-text">{{ product.title }}</div>
 
-                {% if product.price_varies %}
-                    <small>{{ 'products.general.from' | t }}</small> <span class="money">{{ product.price_min | money }}</span>
-                {% else %}
-                    <span class="money">{{ product.price_min | money }}</span>
+          			<span class="money-styling">
+          				{% if product.compare_at_price_max > product.price %}
+          					<span class="compare-at-price"><span class="money">{{ product.compare_at_price_max | money }}</span></span>
+          				{% endif %}
+
+                  {% if product.price_varies %}
+                      <small>{{ 'products.general.from' | t }}</small> <span class="money">{{ product.price_min | money }}</span>
+                  {% else %}
+                      <span class="money">{{ product.price_min | money }}</span>
+                  {% endif %}
+          			</span>
+
+                {% if section.settings.show_reviews %}
+                  <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
                 {% endif %}
-        			</span>
-
-              {% if section.settings.show_reviews %}
-                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-              {% endif %}
 
         		</a>
         	</div>
@@ -250,6 +266,21 @@
 			],
 			"info": "The colors in each 'scheme' can be changed in the 'General settings' > 'Colors' section of your admin"
 		},
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "image title"
+    },
+    {
+      "type": "range",
+      "id": "size",
+      "min": 100,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 200
+    },
     {
       "type": "text",
       "id": "title",

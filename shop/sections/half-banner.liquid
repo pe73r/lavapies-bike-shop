@@ -1,0 +1,165 @@
+<style>
+  #section-{{ section.id }} .half-banner-title{
+    color: {{section.settings.color}}
+  }
+
+  #section-{{ section.id }} .half-banner-subtitle{
+    color: {{section.settings.color}}
+  }
+
+  #section-{{ section.id }} .half-banner-title{
+    font-size: {{section.settings.title-size}}px;
+  }
+
+  #section-{{ section.id }} .half-banner-subtitle{
+    font-size: {{section.settings.subtitle-size}}px;
+  }
+
+//
+</style>
+<section id="section-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="half-banner">
+   <div class="section-half-banner">
+     <div class="{% if section.settings.container == large %} container--large {% elsif section.settings.container == medium %} container--medium {% else %} container--full {% endif%}">
+      <div class="grid grid--center grid--middle grid--flush {% if section.settings.reverse%} grid--rev {% endif %}">
+         <div class="1/2--lap-and-up grid__cell relative">
+            {% include 'image' with img:section.settings.img-left, class: 'full-width'  %}
+            {% if section.settings.title != blank or section.settings.subtitle != blank %}
+              <div class="half-banner_content">
+                <h3 class="half-banner-subtitle">{{ section.settings.subtitle}}</h3>
+                <h2 class="half-banner-title">{{ section.settings.title}}</h2>
+              </div>
+            {% endif %}
+         </div>
+         <div class="1/2--lap-and-up grid__cell">
+            <div class="carousel" data-flickity='{ "cellAlign": "left", "contain": true, "pageDots": true, "autoPlay": {{ section.settings.autoplay }}, "prevNextButtons": {{ section.settings.display-arrows }},
+              "arrowShape": {
+                  "x0": 10,
+                  "x1": 55, "y1": 45,
+                  "x2": 60, "y2": 40,
+                  "x3": 20
+               } }'>
+              {% for block in section.blocks %}
+                <div class="carousel-cell">
+                   {% include 'image' with img:block.settings.slide, class: 'full-width'  %}
+                </div>
+              {% endfor %}
+            </div>
+         </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Half banner",
+  "settings": [
+      {
+        "type":      "select",
+        "id":        "container",
+        "label":     "Container size",
+        "options": [
+        {
+          "value": "full",
+          "label": "container full"
+        },
+        {
+          "value": "large",
+          "label": "container-large"
+        },
+        {
+          "value": "medium",
+          "label": "container-medium"
+        }
+        ],
+        "default":   "full",
+        "info":      "Choose size of container"
+      },
+       {
+         "type": "checkbox",
+         "id": "reverse",
+         "label": "inverse blocks?"
+       },
+       {
+         "type": "header",
+         "content": "left side"
+       },
+       {
+         "type": "text",
+         "id": "title",
+         "label": "title",
+         "default": "Bike shop"
+       },
+       {
+            "type":      "range",
+            "id":        "title-size",
+            "min":       12,
+            "max":        100,
+            "step":       1,
+            "unit":       "px",
+            "label":     "Title size",
+            "default":   16
+        },
+       {
+         "type": "text",
+         "id": "subtitle",
+         "label": "subtitle",
+         "default": "subtitle"
+       },
+       {
+            "type":      "range",
+            "id":        "subtitle-size",
+            "min":       12,
+            "max":        100,
+            "step":       1,
+            "unit":       "px",
+            "label":     "Title size",
+            "default":   20
+        },
+       {
+         "type": "color",
+         "id": "color",
+         "label": "text color"
+       },
+       {
+         "type": "image_picker",
+         "id": "img-left",
+         "label": "image left"
+       },
+       {
+        "type": "header",
+        "content": "carousel options"
+      },
+       {
+        "type": "checkbox",
+        "id": "display-arrows",
+        "label": "display arrows",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "autoplay",
+        "default": false
+      }
+  ],
+  "blocks": [
+    {
+      "type": "slide-image",
+      "name": "Slide image",
+      "settings": [
+         {
+           "type": "image_picker",
+           "id": "slide",
+           "label": "slide"
+         }
+      ]
+    }
+  ],
+  "presets": [
+      {
+        "name": "Half banner",
+        "category": "Homepage"
+      }
+    ]
+}
+{% endschema %}
