@@ -1,36 +1,53 @@
 <style>
-  #section-{{ section.id }} .half-banner-title{
-    color: {{section.settings.color}}
-  }
+    #section-{{ section.id }} .half-banner-title{
+      color: {{section.settings.color}}
+    }
 
-  #section-{{ section.id }} .half-banner-subtitle{
-    color: {{section.settings.color}}
-  }
+    #section-{{ section.id }} .half-banner-subtitle{
+      color: {{section.settings.color}}
+    }
 
-  #section-{{ section.id }} .half-banner-title{
-    font-size: {{section.settings.title-size}}px;
-  }
+    #section-{{ section.id }} .half-banner-title{
+      font-size: {{section.settings.title-size}}px;
+    }
 
-  #section-{{ section.id }} .half-banner-subtitle{
-    font-size: {{section.settings.subtitle-size}}px;
-  }
+    #section-{{ section.id }} .half-banner-subtitle{
+      font-size: {{section.settings.subtitle-size}}px;
+    }
+    #section-{{ section.id }} .half-banner__logo{
+      max-width: {{section.settings.logo-size}}px;
+    }
 
-//
+   {% if section.settings.border %}
+      #section-{{ section.id }} .banner--border{
+         border-width: {{section.settings.border-size}}px;
+      }
+    {% endif %}
+  //
 </style>
 <section id="section-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="half-banner">
    <div class="section-half-banner">
      <div class="{% if section.settings.container == large %} container--large {% elsif section.settings.container == medium %} container--medium {% else %} container--full {% endif%}">
       <div class="grid grid--center grid--middle grid--flush {% if section.settings.reverse%} grid--rev {% endif %}">
-         <div class="1/2--lap-and-up grid__cell relative">
-            {% include 'image' with img:section.settings.img-left, class: 'full-width'  %}
-            {% if section.settings.title != blank or section.settings.subtitle != blank %}
-              <div class="half-banner_content">
-                <h3 class="half-banner-subtitle">{{ section.settings.subtitle}}</h3>
-                <h2 class="half-banner-title">{{ section.settings.title}}</h2>
-              </div>
-            {% endif %}
+         <div class="1/2--lap-and-up grid__cell relative banner--border border-left-none ">
+              <div class="carousel-cell relative {% if section.settings.display-side-mobile %} desktop-only {% endif %}">
+                {% include 'image' with img:section.settings.img-left, class: 'full-width'  %}
+                 <div class="half-banner_content">
+                     {% if section.settings.title != blank or section.settings.subtitle != blank %}
+                        <h3 class="half-banner-subtitle">{{ section.settings.subtitle}}</h3>
+                        <h2 class="half-banner-title">{{ section.settings.title}}</h2>
+                     {% endif %}
+                     {% if section.settings.logo != blank %}
+                        {% include 'image' with img:section.settings.logo, class: 'half-banner__logo'  %}
+                     {% endif %}
+                     {% if section.settings.button != blank %}
+
+                     {% endif %}
+                </div>
+
+            </div>
          </div>
-         <div class="1/2--lap-and-up grid__cell">
+         <div class="1/2--lap-and-up grid__cell banner--border">
             <div class="carousel" data-flickity='{ "cellAlign": "left", "contain": true, "pageDots": true, "autoPlay": {{ section.settings.autoplay }}, "prevNextButtons": {{ section.settings.display-arrows }},
               "arrowShape": {
                   "x0": 10,
@@ -84,6 +101,12 @@
          "content": "left side"
        },
        {
+         "type": "checkbox",
+         "id": "display-side-mobile",
+         "label": "dont display this side in mobile",
+         "default": true
+       },
+       {
          "type": "text",
          "id": "title",
          "label": "title",
@@ -122,9 +145,40 @@
        },
        {
          "type": "image_picker",
+         "id": "logo",
+         "label": "logo"
+       },
+       {
+         "type": "range",
+         "id": "logo-size",
+         "min": 100,
+         "max": 600,
+         "step": 10,
+         "unit": "px",
+         "label": "Logo width",
+         "default": 200
+       },
+       {
+         "type": "image_picker",
          "id": "img-left",
          "label": "image left"
        },
+       {
+         "type": "checkbox",
+         "id": "border",
+         "label": "images border?",
+         "default": false
+       },
+       {
+            "type":      "range",
+            "id":        "border-size",
+            "min":       0,
+            "max":        30,
+            "step":       1,
+            "unit":       "px",
+            "label":     "border-size",
+            "default":   10
+        },
        {
         "type": "header",
         "content": "carousel options"
@@ -141,6 +195,8 @@
         "label": "autoplay",
         "default": false
       }
+
+
   ],
   "blocks": [
     {

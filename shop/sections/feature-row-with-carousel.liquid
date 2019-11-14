@@ -2,13 +2,11 @@
   #section-{{ section.id }} .featured-row__title{
      font-size: {{section.settings.title-size}}px;
    }
-
    {% if section.settings.background != blank %}
       #section-{{ section.id }} .background__image{
          background-image: url("{{ section.settings.background | img_url: 'master' }}");
        }
    {% endif %}
-
 //
 </style>
 
@@ -49,12 +47,30 @@
   <div class="page-width feature-row homepage-featured-content">
     {% capture image_layout %}
       <div class="feature-row__item col-md-{{ image_width_columns }} col-xs-12">
-        {% if section.settings.image != blank %}
-          {% include 'responsive-image' with section.settings.image, alt: section.settings.image.alt, class: 'feature-row__image' %}
-        {% else %}
-        {{ 'image' | placeholder_svg_tag: 'icon icon--placeholder' }}
-        {% endif %}
+        <div class="carousel" data-flickity='{ "cellAlign": "left", "contain": true, "pageDots": true }'>
+          <div class="carousel-cell">
+            {% if section.settings.image != blank %}
+               {% include 'responsive-image' with section.settings.image, alt: section.settings.image.alt, class: 'feature-row__image' %}
+            {% else %}
+            {{ 'image' | placeholder_svg_tag: 'icon icon--placeholder' }}
+            {% endif %}
+         </div>
+         <div class="carousel-cell">
+           {% if section.settings.image-2 != blank %}
+              {% include 'responsive-image' with section.settings.image-2, alt: section.settings.image.alt, class: 'feature-row__image' %}
+           {% else %}
+           {{ 'image' | placeholder_svg_tag: 'icon icon--placeholder' }}
+           {% endif %}
+        </div>
+        <div class="carousel-cell">
+          {% if section.settings.image-3 != blank %}
+             {% include 'responsive-image' with section.settings.image-3, alt: section.settings.image.alt, class: 'feature-row__image' %}
+          {% else %}
+          {{ 'image' | placeholder_svg_tag: 'icon icon--placeholder' }}
+          {% endif %}
+       </div>
       </div>
+    </div>
     {% endcapture %}
 
 	<div class="row">
@@ -65,7 +81,7 @@
 
       <div class="feature-row__item feature-row__text feature-row__text--{{ section.settings.layout }} col-md-{{ content_width_columns }} col-xs-12">
         {% if section.settings.title != blank %}
-          <div class="featured-row__title-box">
+          <div class="featured-row__title">
             <h2><span class="featured-row__title {% if section.settings.show-underline %} title-underline {% endif %}">{{ section.settings.title | escape }}</span></h2>
           </div>
         {% endif %}
@@ -163,7 +179,19 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Image",
+      "label": "slide 1",
+			"info": "600 x 600px recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "image-2",
+      "label": "slide 2",
+			"info": "600 x 600px recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "image-3",
+      "label": "slide 3",
 			"info": "600 x 600px recommended"
     },
     {
@@ -237,7 +265,7 @@
   ],
   "presets": [
     {
-      "name": "Image with text",
+      "name": "Carousel with text",
       "category": "Text"
     }
   ]

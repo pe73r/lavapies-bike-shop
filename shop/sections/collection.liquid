@@ -1,24 +1,37 @@
 <style >
 
-#section-{{ section.id }} .featured-products__title{
+#section-{{ section.id }} .featured-collection__image{
    max-width: {{ section.settings.size }}px;
  }
+
+{% if section.settings.background != blank %}
+   #section-{{ section.id }} .background__image{
+      background-image: url("{{ section.settings.background | img_url: 'master' }}");
+    }
+{% endif %}
+
+{% if section.settings.custom-color != blank %}
+   #section-{{ section.id }} .homepage-sections-wrapper{
+      background-color: {{ section.settings.custom-color }};
+    }
+{% endif %}
+
 //
 </style>
-
+<section id="section-{{ section.id }}">
 {% case section.settings.colors %}
   {% when 'white' %}
-    <div class="homepage-sections-wrapper homepage-sections-wrapper--white">
+    <div class="homepage-sections-wrapper homepage-sections-wrapper--white background__image">
   {% when 'light' %}
-    <div class="homepage-sections-wrapper homepage-sections-wrapper--light">
+    <div class="homepage-sections-wrapper homepage-sections-wrapper--light background__image">
   {% when 'accent' %}
-    <div class="homepage-sections-wrapper homepage-sections-wrapper--accent">
+    <div class="homepage-sections-wrapper homepage-sections-wrapper--accent background__image">
   {% when 'dark' %}
-    <div class="homepage-sections-wrapper homepage-sections-wrapper--dark">
+    <div class="homepage-sections-wrapper homepage-sections-wrapper--dark background__image">
 {% endcase %}
-
-<div class="container" id="section-{{ section.id }}">
-	<div class="row">
+<div class="">
+ <div class="container">
+	 <div class="row">
 		<div class="page-width col-md-12">
       {% if section.settings.image != blank %}
         <div class="featured-collection__image">
@@ -233,8 +246,10 @@
     {% endif %}
 	</div>
   </div>
+  </div>
 </div>
 </div>
+</section>
 
 {% schema %}
 {
@@ -266,6 +281,16 @@
 			],
 			"info": "The colors in each 'scheme' can be changed in the 'General settings' > 'Colors' section of your admin"
 		},
+    {
+      "type": "color",
+      "id": "custom-color",
+      "label": "custom background color"
+    },
+    {
+      "type": "image_picker",
+      "id": "background",
+      "label": "background-dust"
+    },
     {
       "type": "image_picker",
       "id": "image",

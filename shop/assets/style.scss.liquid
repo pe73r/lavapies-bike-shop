@@ -7363,6 +7363,9 @@ https://flickity.metafizzy.co
     $cream: #d5b697;
     $verde: #466f6b;
     $transparent: transparent;
+    $salmon: #FDE5E5;
+    $underline-color: {{settings.underline-color }};
+
 
 
   /*================ custom font sizes ======================*/
@@ -7539,10 +7542,11 @@ https://flickity.metafizzy.co
 
 #sm-icons {
     padding-left: 20px;
+    cursor: pointer;
     img{
         width: 30px;
         -webkit-filter: grayscale(100%);
-        filter: grayscale(100%);
+        
              &:hover{
                 filter: grayscale(0%);
              }
@@ -7598,12 +7602,31 @@ header#site-header .header-social-links.header-social-links--left a {
 .half-banner-title{
     margin: 0;
     padding: 30px;
-    box-shadow: 5px 5px $verde;
-    text-shadow: 5px 5px $cream;
 }
 
 .half-banner-subtitle{
    margin: 0;
+}
+
+.half-banner__logo{
+  max-width: 300px;
+}
+
+.banner--border{
+   border-style: solid;
+   border-color: $white;
+   border-top:0;
+   border-bottom:0;
+}
+
+.border-left-none{
+   border-left: 0;
+}
+
+@media #{$pocket} {
+  .banner--border{
+    border-width:0 !important;
+  }
 }
 
 /*================ Featured products ======================*/
@@ -7616,14 +7639,13 @@ header#site-header .header-social-links.header-social-links--left a {
     }
 }
 .featured-collection__title{
-
   padding: 5px;
   text-align: center;
     max-width: 200px;
     margin: 20px auto;
    h2{
      width: fit-content;
-     background-image: linear-gradient(to top, $cream 40%, transparent 40%);
+     background-image: linear-gradient(to top, $underline-color 40%, transparent 40%);
       font-size: 30px;
    }
 }
@@ -7632,4 +7654,82 @@ header#site-header .header-social-links.header-social-links--left a {
    font-size: 16px;
    text-transform: uppercase;
    font-family: $headerFontStack;
+}
+
+.money-styling{
+  padding: 0;
+}
+
+.background__image{
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+}
+
+/*================ Featured row ======================*/
+
+.featured-row__logos{
+   margin-top: 20px;
+    img{
+       max-width: 120px;
+       margin-right: 15px;
+       margin-bottom: 15px;
+    }
+}
+
+.featured-row__subtext {
+  max-width: 500px;
+}
+
+.featured-row__title-box{
+  padding: 5px 0;
+  text-align: center;
+   h2{
+     width: fit-content;
+   }
+}
+
+.title-underline{
+  background-image: linear-gradient(to top, $underline-color 40%, transparent 40%);
+}
+
+/*================ Carousel with text ======================*/
+
+.feature-row {
+      .carousel-cell {
+         width: 100%; /* full width */
+          /* height of carousel */
+        }
+    .flickity-page-dots {
+
+     }
+    .flickity-prev-next-button .flickity-button-icon {
+      fill: $white;
+   }
+}
+
+/*================ Section title ======================*/
+
+.container--title{
+  margin: 0 auto;
+  text-align: center;
+}
+.section-title__box{
+  padding: 5px 0;
+  text-align: center;
+  margin-bottom: 20px;
+   h2{
+
+   }
+}
+
+.section-title__subtext{
+   max-width: 650px;
+   margin: 0 auto;
+}
+
+@media #{$pocket} {
+  .container--title{
+    width: 90%;
+  }
 }

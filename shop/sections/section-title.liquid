@@ -1,0 +1,106 @@
+<style>
+  #section-{{ section.id }} .homepage-sections-wrapper{
+    padding: {{ section.settings.padding}}px 0;
+  }
+
+  #section-{{ section.id }} .section-title__title{
+     font-size: {{section.settings.title-size}}px;
+   }
+
+// 
+</style>
+
+<section id="section-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="section-title">
+  <div class="container--title">
+      {% case section.settings.colors %}
+        {% when 'white' %}
+          <div class="homepage-sections-wrapper homepage-sections-wrapper--white">
+        {% when 'light' %}
+          <div class="homepage-sections-wrapper homepage-sections-wrapper--light">
+        {% when 'accent' %}
+          <div class="homepage-sections-wrapper homepage-sections-wrapper--accent">
+        {% when 'dark' %}
+          <div class="homepage-sections-wrapper homepage-sections-wrapper--dark">
+      {% endcase %}
+      <div class="section-title__box">
+        <h2><span class="section-title__title {% if section.settings.show-underline %} title-underline {% endif %}">{{ section.settings.title | escape }}</span></h2>
+      </div>
+      <div class="rte section-title__subtext textarea">{{ section.settings.text_block }}</div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "section title",
+  "settings": [
+      {
+        "type": "select",
+        "id": "colors",
+        "label": "Color scheme",
+        "default": "white",
+        "options": [
+          {
+            "value": "white",
+            "label": "White"
+          },
+          {
+            "value": "light",
+            "label": "Light"
+          },
+          {
+            "value": "accent",
+            "label": "Feature"
+          },
+          {
+            "value": "dark",
+            "label": "Dark"
+          }
+        ],
+        "info": "The colors in each 'scheme' can be changed in the 'General settings' > 'Colors' section of your admin"
+      },
+      {
+           "type":      "range",
+           "id":        "padding",
+           "min":       0,
+           "max":        100,
+           "step":       1,
+           "unit":       "px",
+           "label":     "padding",
+           "default":   16
+       },
+       {
+         "type": "text",
+         "id": "title",
+         "label": "title",
+         "default": "Title"
+       },
+       {
+            "type":      "range",
+            "id":        "title-size",
+            "min":       12,
+            "max":        100,
+            "step":       1,
+            "unit":       "px",
+            "label":     "Title size",
+            "default":   16
+        },
+        {
+          "type": "checkbox",
+          "id": "show-underline",
+          "label": "show underline?"
+        },
+        {
+          "type": "richtext",
+          "id": "text_block",
+          "label": "Text",
+          "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+        }
+  ],
+  "presets": [
+    {
+      "name": "Section title",
+      "category": "Text"
+    }
+  ]
+}
+{% endschema %}
