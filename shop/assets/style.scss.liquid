@@ -7536,25 +7536,29 @@ https://flickity.metafizzy.co
             width:100%;
           }
 
-/*==============================================*/
+
 /*================ Header ======================*/
-/*==============================================*/
 
 #sm-icons {
     padding-left: 20px;
     cursor: pointer;
     img{
-        width: 30px;
-        -webkit-filter: grayscale(100%);
-        
-             &:hover{
-                filter: grayscale(0%);
-             }
-       }
+      width: 30px;
+      opacity: .7;
+      &:hover{
+        opacity: 1;
+      }
+    }
 }
 
 header#site-header .header-social-links.header-social-links--left a {
     padding-right: 5px;
+}
+
+/*================ espacio entre secciones!!! ======================*/
+
+.shopify-section .homepage-sections-wrapper {
+    padding: 30px 0;
 }
 
 /*================ text adverts ======================*/
@@ -7654,6 +7658,8 @@ header#site-header .header-social-links.header-social-links--left a {
    font-size: 16px;
    text-transform: uppercase;
    font-family: $headerFontStack;
+   font-weight: bold;
+
 }
 
 .money-styling{
@@ -7693,6 +7699,22 @@ header#site-header .header-social-links.header-social-links--left a {
   background-image: linear-gradient(to top, $underline-color 40%, transparent 40%);
 }
 
+.featured-row__picto{
+   position: absolute;
+
+}
+
+.featured-row__picto-2{
+   position: absolute;
+
+}
+@media only screen and (max-width: 991px) {
+
+  .featured-row__picto{
+     display: none;
+  }
+}
+
 /*================ Carousel with text ======================*/
 
 .feature-row {
@@ -7717,9 +7739,9 @@ header#site-header .header-social-links.header-social-links--left a {
 .section-title__box{
   padding: 5px 0;
   text-align: center;
-  margin-bottom: 20px;
+  margin: 20px auto;
+  max-width: 60%;
    h2{
-
    }
 }
 
@@ -7728,8 +7750,41 @@ header#site-header .header-social-links.header-social-links--left a {
    margin: 0 auto;
 }
 
+.section-title__icon{
+  text-align: right;
+  margin-top: -30px;
+    img{
+       max-width: 160px;
+       -webkit-transform: rotate(10deg); /* Safari & Chrome */
+       -moz-transform: rotate(10deg); /* Firefox */
+       -ms-transform: rotate(10deg); /* Internet Explorer */
+       -o-transform: rotate(10deg); /* Opera */
+    }
+}
+
+.corcho{
+   width: 60%;
+   margin: 0 auto;
+}
+
 @media #{$pocket} {
   .container--title{
     width: 90%;
   }
+}
+
+/*================ Bike selection ======================*/
+
+.bike-selection__button{
+  position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%, -5%);
+    width: 80%;
+}
+.bike-selection__title-box{
+  margin: 20px 0;
+}
+.bike-selection__title {
+
 }

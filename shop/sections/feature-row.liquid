@@ -9,6 +9,33 @@
        }
    {% endif %}
 
+   #section-{{ section.id }} .featured-row__picto{
+      top: {{ section.settings.top-1}}%;
+      right: {{ section.settings.right-1}}%;
+
+   }
+
+   #section-{{ section.id }} .featured-row__picto-2{
+      top: {{ section.settings.top-2}}%;
+      right: {{ section.settings.right-2}}%;
+
+   }
+   #section-{{ section.id }} .featured-row__picto-1{
+     -webkit-transform: rotate({{ section.settings.rotate-1}}deg); /* Safari & Chrome */
+     -moz-transform: rotate({{ section.settings.rotate-1}}deg); /* Firefox */
+     -ms-transform: rotate({{ section.settings.rotate-1}}deg); /* Internet Explorer */
+     -o-transform: rotate({{ section.settings.rotate-1}}deg); /* Opera */
+       max-width: {{ section.settings.picto-width-1}}px;
+    }
+
+    #section-{{ section.id }} .featured-row__picto-2{
+      -webkit-transform: rotate({{ section.settings.rotate-2}}deg); /* Safari & Chrome */
+      -moz-transform: rotate({{ section.settings.rotate-2}}deg); /* Firefox */
+      -ms-transform: rotate({{ section.settings.rotate-2}}deg); /* Internet Explorer */
+      -o-transform: rotate({{ section.settings.rotate-2}}deg); /* Opera */
+      max-width: {{ section.settings.picto-width-2}}px;
+     }
+
 //
 </style>
 
@@ -63,7 +90,7 @@
         {{ image_layout }}
       {% endif %}
 
-      <div class="feature-row__item feature-row__text feature-row__text--{{ section.settings.layout }} col-md-{{ content_width_columns }} col-xs-12">
+      <div class="feature-row__item feature-row__text feature-row__text--{{ section.settings.layout }} col-md-{{ content_width_columns }} col-xs-12 relative">
         {% if section.settings.title != blank %}
           <div class="featured-row__title-box">
             <h2><span class="featured-row__title {% if section.settings.show-underline %} title-underline {% endif %}">{{ section.settings.title | escape }}</span></h2>
@@ -82,6 +109,16 @@
             <img src="{{ block.settings.logo | img_url: 'master' }}" alt="logo-social">
           {% endfor %}
         </div>
+        {% if section.settings.picto != blank %}
+          <div class="featured-row__picto">
+              <img src="{{ section.settings.picto | img_url: 'master' }}" alt="{{ section.settings.picto.alt }}" class="featured-row__picto-1">
+          </div>
+        {% endif %}
+        {% if section.settings.picto-2 != blank %}
+          <div class="featured-row__picto-2">
+              <img src="{{ section.settings.picto-2 | img_url: 'master' }}" alt="{{ section.settings.picto.alt }}" class="featured-row__picto-2">
+          </div>
+        {% endif %}
       </div>
 
       {% if section.settings.layout == 'right' %}
@@ -219,7 +256,98 @@
       "id": "button_link",
       "label": "Button link",
       "info": "Required to show the button"
-    }
+    },
+    {
+      "type": "image_picker",
+      "id": "picto",
+      "label": "extra image 1"
+    },
+    {
+         "type":      "range",
+         "id":        "picto-width-1",
+         "min":       100,
+         "max":        200,
+         "step":       1,
+         "unit":       "px",
+         "label":     "max width",
+         "default":   150
+     },
+    {
+         "type":      "range",
+         "id":        "top-1",
+         "min":       0,
+         "max":        100,
+         "step":       1,
+         "unit":       "%",
+         "label":     "vertical position",
+         "default":   16
+     },
+    {
+         "type":      "range",
+         "id":        "right-1",
+         "min":       0,
+         "max":        100,
+         "step":       1,
+         "unit":       "%",
+         "label":     "horizontal position",
+         "default":   16
+     },
+     {
+          "type":      "range",
+          "id":        "rotate-1",
+          "min":       -50,
+          "max":        50,
+          "step":       1,
+          "unit":       "deg",
+          "label":     "rotate position",
+          "default":   20
+      },
+     {
+       "type": "image_picker",
+       "id": "picto-2",
+       "label": "extra image 2"
+     },
+     {
+          "type":      "range",
+          "id":        "picto-width-2",
+          "min":       100,
+          "max":        200,
+          "step":       1,
+          "unit":       "px",
+          "label":     "max width",
+          "default":   150
+      },
+     {
+          "type":      "range",
+          "id":        "top-2",
+          "min":       0,
+          "max":        100,
+          "step":       1,
+          "unit":       "%",
+          "label":     "vertical position",
+          "default":   16
+      },
+     {
+          "type":      "range",
+          "id":        "right-2",
+          "min":       0,
+          "max":        100,
+          "step":       1,
+          "unit":       "%",
+          "label":     "horizontal position",
+          "default":   16
+      },
+      {
+           "type":      "range",
+           "id":        "rotate-2",
+           "min":       -50,
+           "max":        50,
+           "step":       1,
+           "unit":       "deg",
+           "label":     "rotate position",
+           "default":   20
+       }
+
   ],
   "blocks": [
     {

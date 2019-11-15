@@ -1,0 +1,160 @@
+<style>
+#section-{{ section.id }} .bike-selection__title{
+   font-size: {{section.settings.title-size}}px;
+ }
+
+
+{% if section.settings.background != blank %}
+   #section-{{ section.id }} .background__image{
+      background-image: url("{{ section.settings.background | img_url: 'master' }}");
+    }
+{% endif %}
+</style>
+
+<section id="section-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="half-banner">
+{% case section.settings.colors %}
+  {% when 'white' %}
+    <div class="homepage-sections-wrapper homepage-sections-wrapper--white background__image">
+  {% when 'light' %}
+    <div class="homepage-sections-wrapper homepage-sections-wrapper--light background__image">
+  {% when 'accent' %}
+    <div class="homepage-sections-wrapper homepage-sections-wrapper--accent background__image">
+  {% when 'dark' %}
+    <div class="homepage-sections-wrapper homepage-sections-wrapper--dark background__image">
+{% endcase %}
+    <div class="{% if section.settings.hide-mobile %} desktop-only {% endif %}">
+        <div class="container">
+          <div class="bike-selection__title-box {% if section.settings.title-position == 'center' %} align-center {% endif %} ">
+            <h2><span class="bike-selection__title {% if section.settings.show-underline %} title-underline {% endif %}">{{ section.settings.title | escape }}</span></h2>
+          </div>
+            <div class="grid">
+               {% for block in section.blocks %}
+                <div class="1/3--lap-and-up  grid__cell">
+                  <div class="bike-selection__box relative">
+                    <a href="{{ block.settins.url }}">
+                      {% include 'image' with img : block.settings.image , class: 'full-width' %}
+                    </a>
+                    {% if block.settings.button_label != blank %}
+                      <a href="{{ block.settings.url }}" class="btn btn-custom bike-selection__button">
+                          {{ block.settings.button_label }}
+                      </a>
+                    {% endif %}
+                  </div>
+               </div>
+            {% endfor %}
+          </div>
+       </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Bike selection",
+  "settings": [
+
+    {
+      "type": "checkbox",
+      "id": "hide-mobile",
+      "label": "hide mobile",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "colors",
+      "label": "Color scheme",
+      "default": "white",
+      "options": [
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        },
+        {
+          "value": "accent",
+          "label": "Feature"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
+      ],
+      "info": "The colors in each 'scheme' can be changed in the 'General settings' > 'Colors' section of your admin"
+    },
+    {
+      "type": "image_picker",
+      "id": "background",
+      "label": "background-dust"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Title"
+    },
+    {
+         "type":      "range",
+         "id":        "title-size",
+         "min":       12,
+         "max":        100,
+         "step":       1,
+         "unit":       "px",
+         "label":     "Title size",
+         "default":   16
+     },
+     {
+       "type": "checkbox",
+       "id": "show-underline",
+       "label": "show underline?"
+     },
+     {
+       "type": "select",
+       "id": "title-position",
+       "label": "Title position",
+       "default": "left",
+       "options": [
+         {
+           "value": "left",
+           "label": "left"
+         },
+         {
+           "value": "center",
+           "label": "center"
+         }
+       ]
+     }
+  ],
+  "blocks": [
+    {
+      "type": "bike-block",
+      "name": "bike block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "image"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "button label",
+          "default": "go to bikes"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "bike selection",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}

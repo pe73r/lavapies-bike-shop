@@ -7,11 +7,11 @@
      font-size: {{section.settings.title-size}}px;
    }
 
-// 
+//
 </style>
 
 <section id="section-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="section-title">
-  <div class="container--title">
+  <div class="container--title relative">
       {% case section.settings.colors %}
         {% when 'white' %}
           <div class="homepage-sections-wrapper homepage-sections-wrapper--white">
@@ -24,8 +24,13 @@
       {% endcase %}
       <div class="section-title__box">
         <h2><span class="section-title__title {% if section.settings.show-underline %} title-underline {% endif %}">{{ section.settings.title | escape }}</span></h2>
+        <div class="rte section-title__subtext textarea">{{ section.settings.text_block }}</div>
+        {% if section.settings.picto != blank %}
+          <div class="section-title__icon">
+              <img src="{{ section.settings.picto | img_url: 'master' }}" alt="{{ section.settings.picto.alt }}">
+          </div>
+        {% endif %}
       </div>
-      <div class="rte section-title__subtext textarea">{{ section.settings.text_block }}</div>
     </div>
   </div>
 </section>
@@ -94,6 +99,11 @@
           "id": "text_block",
           "label": "Text",
           "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "picto",
+          "label": "picto"
         }
   ],
   "presets": [
